@@ -1,5 +1,6 @@
 package com.example.android_sprint13_challenge
 
+import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,12 +27,15 @@ class MainActivity : AppCompatActivity() {
     lateinit var makeupService: MakeupService
 
     private val makeupList = mutableListOf<Makeup>()
+    lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         (application as App).appComponent.inject(this)
+
+        context = this
 
         recycler_view_main.apply {
             setHasFixedSize(false)
@@ -42,9 +46,10 @@ class MainActivity : AppCompatActivity() {
         search_view_main.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                makeupService.getMakeupList("$p0").subscribeOn(Schedulers.io())
+                makeupService.getMakeupList("${p0}").subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { data -> recycler_view_main.adapter = MakeupListAdapter(data) }
+                    .subscribe ({ data -> recycler_view_main.adapter = MakeupListAdapter(data) },
+                        { data -> Toast.makeText(context, data.message, Toast.LENGTH_LONG).show() })
 
                 return true
             }

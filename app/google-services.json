@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "901260247403",
+    "firebase_url": "https://sprint13challenge.firebaseio.com",
+    "project_id": "sprint13challenge",
+    "storage_bucket": "sprint13challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901260247403:android:9415591c4bc2342c084c2e",
+        "android_client_info": {
+          "package_name": "com.example.android_sprint13_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901260247403-ilfpikal67i5lkacc14kidaa71gjgo5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android_sprint13_challenge",
+            "certificate_hash": "be4a35e51a1fe5806ee9ee6f1da672d601711142"
+          }
+        },
+        {
+          "client_id": "901260247403-drbt81fg2f17qc5avulap2em3qvek8j5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-7L01zJjRwwkyt8hsibE4Eo21_uZVnHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901260247403-drbt81fg2f17qc5avulap2em3qvek8j5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
