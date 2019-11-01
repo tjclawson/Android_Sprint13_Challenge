@@ -81,9 +81,12 @@ class MainActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = makeupList[position]
-            holder.nameTextView.text = data.name
-            holder.priceTextView.text = data.price
-            holder.ratingTextView.text = data.rating
+            holder.nameTextView.append(data.name)
+            holder.priceTextView.append(data.price)
+            if (data.rating != null){
+                holder.ratingTextView.append(data.rating)
+            } else holder.ratingTextView.append("No rating")
+
             Picasso.get().load(data.image_link).into(holder.imageView)
         }
 
