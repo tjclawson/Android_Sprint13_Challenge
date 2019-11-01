@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         (application as App).appComponent.inject(this)
-
         context = this
+        FirebaseAnalytics.getInstance(this).setCurrentScreen(this, "MainActivity", "Test")
 
         recycler_view_main.apply {
             setHasFixedSize(false)
@@ -48,8 +49,16 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 makeupService.getMakeupList("${p0}").subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe ({ data -> recycler_view_main.adapter = MakeupListAdapter(data) },
-                        { data -> Toast.makeText(context, data.message, Toast.LENGTH_LONG).show() })
+                    .subscribe (
+                        { data ->
+                            val bundle = Bundle()
+                            bundle.putString("success_response", "API return list of size ${data.size}")
+                            FirebaseAnalytics.getInstance(context).logEvent("query_submit_success", bundle)
+                            recycler_view_main.adapter = MakeupListAdapter(data) },
+                        { data ->
+                            val bundle = Bundle()
+                            bundle.putString("failure_response", data.message)
+                            FirebaseAnalytics.getInstance(context).logEvent("query_submit_failure", bundle) })
 
                 return true
             }
